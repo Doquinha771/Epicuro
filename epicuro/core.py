@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import importlib.util
 import os
+import shutil
 import subprocess
 import threading
 import time
@@ -17,16 +18,48 @@ import imageio_ffmpeg
 import yt_dlp
 
 APP_NAME = "Epicuro"
-APP_VERSION = "3.4.0"
+APP_VERSION = "2.0.1"
 BASE_DIR = Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parent.parent
-DOWNLOAD_DIR = BASE_DIR / "downloads"
-DATA_DIR = BASE_DIR / "data"
+
+
+def _user_data_root() -> Path:
+    """Persistent per-user state that survives updates and reinstallations."""
+    if os.name == "nt":
+        root = os.environ.get("LOCALAPPDATA")
+        if root:
+            return Path(root) / APP_NAME
+    return Path.home() / ".epicuro"
+
+
+def _default_download_dir() -> Path:
+    return Path.home() / "Downloads" / APP_NAME
+
+
+DATA_DIR = _user_data_root()
+DOWNLOAD_DIR = _default_download_dir()
 HISTORY_FILE = DATA_DIR / "history.json"
 SETTINGS_FILE = DATA_DIR / "settings.json"
 
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+
+def migrate_legacy_state() -> None:
+    """Move settings/history from old portable installs without deleting originals."""
+    legacy = BASE_DIR / "data"
+    if legacy.resolve() == DATA_DIR.resolve() or not legacy.exists():
+        return
+    for name in ("settings.json", "history.json"):
+        src = legacy / name
+        dst = DATA_DIR / name
+        if src.is_file() and not dst.exists():
+            try:
+                shutil.copy2(src, dst)
+            except OSError:
+                pass
+
+
+migrate_legacy_state()
 FFMPEG_PATH = imageio_ffmpeg.get_ffmpeg_exe()
 
 
@@ -474,6 +507,10 @@ class DownloadEngine:
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             startupinfo.wShowWindow = 0
+        child_env = os.environ.copy()
+        ffmpeg_dir = str(Path(FFMPEG_PATH).resolve().parent)
+        child_env["PATH"] = ffmpeg_dir + os.pathsep + child_env.get("PATH", "")
+        child_env.setdefault("FFMPEG_BINARY", FFMPEG_PATH)
         self._spotify_process = subprocess.Popen(
             cmd,
             stdin=subprocess.DEVNULL,
@@ -482,6 +519,7 @@ class DownloadEngine:
             creationflags=creationflags,
             startupinfo=startupinfo,
             cwd=str(self.output_dir),
+            env=child_env,
         )
 
         # SpotDL runs without console pipes in the windowed build. Progress stays

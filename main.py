@@ -104,8 +104,8 @@ def install_windows_kill_job() -> None:
         _WINDOWS_JOB_HANDLE = None
 
 REQUIRED = {
-    "PySide6": "PySide6>=6.7",
-    "yt_dlp": "yt-dlp[default]>=2025.1.0",
+    "PySide6": "PySide6-Essentials>=6.7,<7",
+    "yt_dlp": "yt-dlp>=2025.1.0",
     "imageio_ffmpeg": "imageio-ffmpeg>=0.5.1",
     "spotdl": "spotdl>=4.2",
     "pkg_resources": "setuptools>=70,<81",
@@ -146,6 +146,32 @@ def run_spotdl_worker() -> int:
         return 0 if exc.code in (None, "") else 1
 
 
+
+def run_self_test() -> int:
+    """Fast frozen-build check used by the Windows build scripts."""
+    try:
+        from pathlib import Path
+        from epicuro import __version__
+        from epicuro.core import DATA_DIR, DOWNLOAD_DIR, FFMPEG_PATH, SettingsStore
+
+        if __version__ != "2.0.1":
+            return 21
+        if not Path(FFMPEG_PATH).is_file():
+            return 22
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        settings = SettingsStore().load()
+        if not isinstance(settings, dict) or not settings.get("download_dir"):
+            return 23
+        # SpotDL is imported lazily in normal use, but it must exist in the frozen build.
+        if importlib.util.find_spec("spotdl") is None:
+            return 24
+        if importlib.util.find_spec("yt_dlp") is None:
+            return 25
+        return 0
+    except Exception:
+        return 29
+
 def show_startup_error(message: str) -> None:
     # Prefer a native message box on Windows even when the EXE has no console.
     if os.name == "nt":
@@ -165,6 +191,8 @@ def main() -> int:
     install_windows_kill_job()
     if "--spotdl-worker" in sys.argv:
         return run_spotdl_worker()
+    if "--self-test" in sys.argv:
+        return run_self_test()
 
     try:
         ensure_dependencies()

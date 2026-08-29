@@ -1,0 +1,15 @@
+Epicuro 2.0.1
+
+- build do Windows otimizado para reduzir o tamanho final;
+- PySide6 completo substituído por PySide6-Essentials;
+- módulos Qt não usados removidos do pacote;
+- coleta do SpotDL no PyInstaller ficou mais seletiva;
+- yt-dlp instalado sem extras desnecessários;
+- configurações e histórico movidos para a pasta do usuário;
+- downloads padrão em Downloads\Epicuro;
+- migração automática dos dados das versões anteriores;
+- auto-teste do executável depois do build;
+- informações de versão adicionadas ao Epicuro.exe;
+- estrutura pronta para instalador único;
+- atualização pelo Setup remove a instalação anterior e preserva dados pessoais;
+- instalador com licença, informações de uso, atalhos e desinstalador.
