@@ -27,22 +27,6 @@ Requer Windows 10 ou 11 e Python 3.11 ou mais recente.
 3. Execute `INICIAR_EPICURO.bat`.
 4. Na primeira execução, as dependências serão instaladas automaticamente.
 
-## Gerar o aplicativo
-
-Os scripts incluídos no projeto permitem gerar uma versão portátil ou um instalador para Windows.
-
-Para gerar o executável portátil:
-
-```text
-GERAR_PORTATIL.bat
-```
-
-Para a versão preparada com instalador, use o projeto de Setup Builder e execute:
-
-```text
-GERAR_SETUP.bat
-```
-
 ## Dados do aplicativo
 
 As configurações e o histórico ficam separados da pasta de instalação:
