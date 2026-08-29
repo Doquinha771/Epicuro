@@ -1,95 +1,110 @@
-# EpicuroLauncher
+# Epicuro
 
-Launcher em Python para baixar e organizar videos com uma interface local direta e facil de manter. O app roda em Flask, abre no navegador e suporta download de video, extracao de audio, playlists e downloads via `spotdl`.
+Epicuro é um gerenciador desktop para baixar vídeos, áudios e playlists em uma fila única. A interface foi feita em PySide6 e o processamento usa yt-dlp, FFmpeg e SpotDL.
 
-> Use este projeto apenas com midias suas, em dominio publico, ou que voce tenha permissao para baixar. Respeite os termos de uso de cada plataforma.
+## O que tem no app
 
-## Features
+- fila de downloads com iniciar, pausar, cancelar e reorganizar;
+- vídeo em MP4 e áudio em MP3;
+- suporte a playlists e links do Spotify;
+- progresso, velocidade e tempo restante;
+- biblioteca dos arquivos concluídos;
+- arrastar arquivos da biblioteca direto para o Explorer, Área de Trabalho ou outro programa;
+- pesquisa nas transferências e na biblioteca;
+- pasta de downloads configurável;
+- ferramentas para verificar componentes, copiar diagnóstico e limpar downloads incompletos;
+- build para Windows sem janela de terminal.
 
-- Local web UI at `http://127.0.0.1:5000`
-- Video download with quality preferences: best, 1080p, or 720p
-- Audio extraction to MP3 at 320 kbps or 192 kbps
-- Playlist and album handling with ZIP packaging
-- Bundled FFmpeg binary through `imageio-ffmpeg`
+## Rodar pelo código-fonte
 
-## Requirements
+Requer Windows 10 ou 11 e Python 3.11 ou mais recente.
 
-- Python 3.10+
-- Internet access for dependency installation and media downloads
+1. Baixe ou clone o repositório.
+2. Abra `INICIAR_EPICURO.bat`.
+3. Na primeira execução, o script cria `.venv` e instala as dependências.
+4. Depois disso, o Epicuro abre usando `pythonw.exe`, sem deixar um terminal aberto atrás do app.
 
-## Setup
+Também existe `INICIAR_EPICURO_SILENCIOSO.vbs` para iniciar todo o processo sem mostrar a janela do CMD.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+## Como usar
+
+1. Clique em **Novo link** ou use `Ctrl+N`.
+2. Cole o endereço do vídeo, música ou playlist.
+3. Escolha o formato e a qualidade.
+4. Confirme para adicionar à fila.
+5. Os arquivos concluídos aparecem na **Biblioteca**.
+
+Atalhos úteis:
+
+- `Ctrl+Shift+V` usa o link que estiver copiado;
+- `Ctrl+Enter` inicia ou retoma o item selecionado;
+- `Ctrl+P` pausa o download atual;
+- `Ctrl+F` foca a pesquisa de transferências;
+- `Delete` remove o item selecionado da fila;
+- `F1` abre a ajuda.
+
+## Ferramentas
+
+A tela **Ferramentas** serve para manutenção do app. Nela dá para:
+
+- conferir as versões do yt-dlp e SpotDL;
+- verificar se o FFmpeg está disponível;
+- copiar um diagnóstico básico;
+- localizar e remover arquivos `.part` e `.ytdl` deixados por downloads interrompidos;
+- recarregar a biblioteca;
+- abrir a pasta de dados do Epicuro.
+
+A limpeza de arquivos incompletos fica bloqueada enquanto existir download ativo ou pausado.
+
+## Gerar o EXE
+
+Execute:
+
+```text
+GERAR_EXE.bat
 ```
 
-## Run
+O resultado fica em:
 
-```powershell
-python main.py
+```text
+dist\Epicuro\Epicuro.exe
 ```
 
-## Install As A Package
+O build usa PyInstaller em modo `onedir` e `console=False`. Ao abrir o executável aparece somente o aplicativo. Ao fechar a janela, o processo principal e os processos auxiliares iniciados pelo Epicuro são encerrados.
 
-You can install the project directly from GitHub:
+## Testes
 
-```powershell
-python -m pip install git+https://github.com/Doquinha771/EpicuroLauncher.git
-epicuro-launcher
+Execute:
+
+```text
+TESTAR.bat
 ```
 
-Useful command options:
+O script instala as dependências necessárias e roda a suíte com `pytest`. Os testes cobrem persistência, validação de campos, fila, cancelamento, biblioteca, limpeza de arquivos parciais, build sem console e estrutura da interface.
 
-```powershell
-epicuro-launcher --help
-epicuro-launcher --version
-epicuro-launcher --port 8080 --no-open-browser
+## Estrutura
+
+```text
+Epicuro/
+├─ epicuro/
+│  ├─ core.py
+│  ├─ icons.py
+│  ├─ platform_utils.py
+│  └─ ui.py
+├─ assets/
+├─ tests/
+├─ main.py
+├─ requirements.txt
+├─ Epicuro.spec
+├─ INICIAR_EPICURO.bat
+├─ GERAR_EXE.bat
+└─ TESTAR.bat
 ```
 
-For local development:
+As pastas `downloads` e `data` são criadas pelo programa e não precisam ficar no repositório.
 
-```powershell
-python -m pip install -e .
-epicuro-launcher
-```
+## Licença
 
-The app opens the browser automatically. To disable that behavior:
+MIT. O código pode ser usado, modificado e redistribuído livremente nos termos do arquivo [LICENSE](LICENSE).
 
-```powershell
-$env:EPICURO_AUTO_OPEN="0"
-python main.py
-```
-
-You can also customize the host and port:
-
-```powershell
-$env:EPICURO_HOST="127.0.0.1"
-$env:EPICURO_PORT="8080"
-python main.py
-```
-
-## Project Files
-
-- `main.py` - Flask app, frontend template, download logic, and API routes.
-- `pyproject.toml` - Package metadata and the `epicuro-launcher` command.
-- `requirements.txt` - Python dependencies.
-- `.gitignore` - Keeps local environments, caches, generated downloads, and ZIP bundles out of Git.
-- `.github/workflows/release.yml` - Builds package files and creates GitHub Releases from version tags.
-
-## Releases
-
-Releases are generated automatically when a version tag is pushed:
-
-```powershell
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-The workflow builds both `.whl` and `.tar.gz` files and attaches them to the GitHub Release.
-
-## Notes
-
-Downloaded files are written to `retool_downloads/`. Multi-file downloads are packaged as `aura_bundle_*.zip`. Both are ignored by Git.
+Use o Epicuro apenas para baixar conteúdo próprio, licenciado ou que você tenha autorização para salvar.
