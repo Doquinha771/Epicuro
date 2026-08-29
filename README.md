@@ -1,52 +1,80 @@
-# Epicuro 2.0.1
+# Epicuro
 
-Epicuro é um gerenciador para baixar vídeos, áudios e playlists no Windows. A fila permite iniciar, pausar, cancelar e reorganizar downloads, e os arquivos concluídos ficam disponíveis na biblioteca do aplicativo.
+Epicuro é um gerenciador de downloads para Windows focado em vídeos, áudios e playlists, com fila de transferências, biblioteca local e uma interface simples de usar.
 
 ## Recursos
 
-- MP4 e MP3;
-- vídeos e playlists;
-- links do Spotify com SpotDL;
-- escolha de qualidade;
-- fila de downloads;
-- progresso, velocidade e tempo restante;
-- biblioteca com pesquisa e arrastar arquivos para o Explorer ou outros programas;
-- pasta de downloads configurável;
-- ferramentas de diagnóstico e limpeza de arquivos incompletos;
-- executável sem janela de terminal.
+- Download de vídeos em MP4
+- Extração de áudio em MP3
+- Suporte a vídeos e playlists
+- Suporte a links do Spotify com SpotDL
+- Escolha de qualidade
+- Fila de downloads
+- Pausar, retomar, cancelar e reorganizar transferências
+- Progresso, velocidade e tempo restante
+- Biblioteca com pesquisa
+- Arrastar arquivos da biblioteca para o Explorer ou outros programas
+- Pasta de downloads configurável
+- Ferramentas de diagnóstico e limpeza
+- Executável sem janela de terminal
 
 ## Executar pelo código
 
 Requer Windows 10 ou 11 e Python 3.11 ou mais recente.
 
-1. Extraia a pasta.
-2. Abra `INICIAR_EPICURO.bat`.
-3. Na primeira execução as dependências são instaladas.
-4. Depois disso o aplicativo abre normalmente.
+1. Baixe ou clone o projeto.
+2. Extraia os arquivos, se necessário.
+3. Execute `INICIAR_EPICURO.bat`.
+4. Na primeira execução, as dependências serão instaladas automaticamente.
 
-## Gerar a versão portátil
+## Gerar o aplicativo
 
-Abra `GERAR_PORTATIL.bat`.
+Os scripts incluídos no projeto permitem gerar uma versão portátil ou um instalador para Windows.
 
-O script cria o executável otimizado, executa um auto-teste e gera:
+Para gerar o executável portátil:
 
 ```text
-release\Epicuro-2.0.1-Portable.zip
+GERAR_PORTATIL.bat
 ```
 
-O build usa `PySide6-Essentials` e exclui módulos Qt que o Epicuro não utiliza. O tamanho real é mostrado ao final do processo.
+Para a versão preparada com instalador, use o projeto de Setup Builder e execute:
+
+```text
+GERAR_SETUP.bat
+```
 
 ## Dados do aplicativo
 
-As atualizações não dependem mais da pasta onde o programa foi instalado.
+As configurações e o histórico ficam separados da pasta de instalação:
 
 ```text
 Configurações e histórico: %LOCALAPPDATA%\Epicuro
 Downloads padrão:         %USERPROFILE%\Downloads\Epicuro
 ```
 
-## Licença
+Isso permite atualizar ou reinstalar o programa sem apagar a biblioteca local.
 
-MIT. Consulte `LICENSE`.
+## Uso e licença
 
-Use o Epicuro somente para conteúdos próprios, licenciados ou que você tenha autorização para baixar.
+O Epicuro pode ser usado livremente para fins pessoais, educacionais, comerciais, acadêmicos ou de desenvolvimento.
+
+Você pode:
+
+- usar o programa;
+- estudar o código;
+- modificar;
+- criar versões próprias;
+- redistribuir;
+- incluir em outros projetos;
+- publicar;
+- usar comercialmente.
+
+As únicas condições são manter o aviso de licença quando redistribuir partes substanciais do código e não usar o projeto de forma intencional para prejudicar os autores ou colaboradores, distribuir malware, cometer fraude, violar a privacidade de terceiros ou apresentar uma versão modificada como se fosse uma versão oficial do Epicuro.
+
+Consulte o arquivo `LICENSE` para os termos completos.
+
+## Aviso
+
+O Epicuro é fornecido sem garantia. Cada pessoa é responsável pelo uso que faz do programa e pelo conteúdo que baixa.
+
+Use serviços e conteúdos de acordo com as permissões, termos aplicáveis e leis da sua região.

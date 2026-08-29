@@ -1,21 +1,51 @@
-MIT License
+Epicuro Permissive License 1.0
 
 Copyright (c) 2026 Epicuro contributors
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+É concedida, gratuitamente, a qualquer pessoa que obtenha uma cópia deste
+software e dos arquivos de documentação associados (o "Software"), permissão
+para usar, copiar, estudar, modificar, mesclar, publicar, distribuir,
+sublicenciar e/ou vender cópias do Software, inclusive para fins pessoais,
+educacionais, acadêmicos ou comerciais, e permitir que outras pessoas façam o
+mesmo, observadas as condições abaixo.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. O aviso de copyright e esta licença devem ser mantidos em todas as cópias
+   ou partes substanciais do Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. O nome "Epicuro", os nomes dos autores, colaboradores ou a identidade visual
+   oficial do projeto não podem ser usados para afirmar ou sugerir aprovação,
+   parceria, autoria oficial ou endosso de uma versão modificada sem permissão.
+
+3. O Software não pode ser usado, modificado ou distribuído com a finalidade
+   principal e intencional de:
+
+   a) causar dano aos autores ou colaboradores do projeto, incluindo dano
+      deliberado a sistemas, contas, dados, privacidade, segurança ou reputação;
+
+   b) distribuir malware, spyware, ransomware ou outro código criado para
+      comprometer sistemas ou dados sem autorização;
+
+   c) praticar fraude, roubo de identidade, assédio, invasão de privacidade ou
+      acesso não autorizado a sistemas, contas ou informações;
+
+   d) atribuir falsamente aos autores ou ao projeto Epicuro alterações,
+      comportamentos ou versões que não foram produzidos ou aprovados por eles;
+
+   e) realizar atividades cuja ilegalidade seja conhecida pelo usuário na
+      jurisdição aplicável.
+
+4. Modificações, forks e projetos derivados são permitidos. Quando distribuídos
+   com alterações substanciais, devem deixar claro que se tratam de uma versão
+   modificada ou derivada e não de uma versão oficial do Epicuro.
+
+O SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIA DE QUALQUER
+TIPO, EXPRESSA OU IMPLÍCITA, INCLUINDO, SEM LIMITAÇÃO, GARANTIAS DE
+COMERCIALIZAÇÃO, ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA E NÃO VIOLAÇÃO.
+
+EM NENHUMA HIPÓTESE OS AUTORES OU TITULARES DOS DIREITOS AUTORAIS SERÃO
+RESPONSÁVEIS POR RECLAMAÇÕES, DANOS, PERDAS OU OUTRAS RESPONSABILIDADES
+DECORRENTES DO SOFTWARE OU DE SEU USO.
+
+Esta é uma licença permissiva personalizada. Ela não é a licença MIT e não deve
+ser apresentada como MIT ou como uma licença aprovada pela Open Source
+Initiative (OSI).
